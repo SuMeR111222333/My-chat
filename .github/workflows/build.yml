@@ -16,15 +16,11 @@ jobs:
       - run: npm install
       - run: npm install @capacitor/android
       - run: npx cap sync android
-      - name: Build with Gradle
+      - name: Build and Sign APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease -Dorg.gradle.java.home=$JAVA_HOME_21_X64
-      - name: Sign APK
-        run: |
-          sudo apt-get install -y apksigner
-          find android/app/build/outputs/apk/release/ -name "*.apk" -exec apksigner lib-main --key <(echo "debug") --cert <(echo "debug") {} \; || true
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
