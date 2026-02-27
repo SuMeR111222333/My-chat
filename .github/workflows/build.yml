@@ -8,10 +8,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
-      - run: npx cap add android
-      - run: npx cap build android
-      - uses: actions/upload-artifact@v4
+      
+      - name: Install dependencies
+        run: npm install && npm install @capacitor/android
+        
+      - name: Build Android
+        run: |
+          npx cap sync android
+          cd android && ./gradlew assembleRelease
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: app-release
           path: android/app/build/outputs/apk/release/app-release-unsigned.apk
