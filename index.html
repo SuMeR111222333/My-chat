@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Chat APK</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: sans-serif;
+            background-color: #0b141a;
+            color: #e9edef;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #chat-window {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #0b141a;
+        }
+        .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 15px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .my-message {
+            align-self: flex-end;
+            background-color: #005c4b;
+            border-bottom-right-radius: 2px;
+        }
+        .other-message {
+            align-self: flex-start;
+            background-color: #202c33;
+            border-bottom-left-radius: 2px;
+        }
+        .input-area {
+            background: #202c33;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2a3942;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+        button {
+            background: #00a884;
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-window">
+        <div class="message other-message">Чат создан! Это темная тема.</div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="msgInput" placeholder="Сообщение...">
+        <button onclick="sendMessage()">➤</button>
+    </div>
+
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const msgInput = document.getElementById('msgInput');
+
+        function sendMessage() {
+            const text = msgInput.value.trim();
+            if (text !== "") {
+                const msg = document.createElement('div');
+                msg.className = 'message my-message';
+                msg.textContent = text;
+                chatWindow.appendChild(msg);
+                msgInput.value = "";
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+        }
+        msgInput.addEventListener("keypress", (e) => { if(e.key === "Enter") sendMessage(); });
+    </script>
+</body>
+</html>
