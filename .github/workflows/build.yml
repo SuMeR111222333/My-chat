@@ -8,10 +8,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: set up JDK 17
+      - name: set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'zulu'
       - run: npm install
       - run: npm install @capacitor/android
@@ -20,7 +20,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease -Dorg.gradle.java.home=$JAVA_HOME_21_X64
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
