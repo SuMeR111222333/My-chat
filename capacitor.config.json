@@ -1,5 +1,5 @@
 {
   "appId": "com.mychat.app",
   "appName": "MyChat",
-  "webDir": "."
+  "webDir": "www"
 }
